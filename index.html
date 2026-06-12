@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1, #e8dbfc);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animasi Hati Latar Belakang */
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 75, 110, 0.3);
+            font-size: 20px;
+            animation: float 6s linear infinite;
+            bottom: -50px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Wadah Utama (Card) */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            z-index: 10;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.5s ease;
+        }
+
+        h2 {
+            color: #d90429;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            line-height: 1.4;
+        }
+
+        p {
+            color: #4a4a4a;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        /* Gaya Tombol */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            min-height: 50px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-yes {
+            background-color: #ff477e;
+            color: white;
+        }
+
+        .btn-no {
+            background-color: #6c757d;
+            color: white;
+            position: fixed;
+            z-index: 999;
+            touch-action: none; /* Mencegah delay/scroll saat disentuh di HP */
+        }
+
+        .btn-next {
+            background-color: #7209b7;
+            color: white;
+            width: 100%;
+        }
+
+        .btn-wa {
+            background-color: #25d366;
+            color: white;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Halaman Form */
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #ff477e;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        /* Sembunyikan Halaman secara default */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="page1" class="card">
+        <h2>Hai kamu ❤️</h2>
+        <p>Aku punya pertanyaan...<br><b>Mau jadi pacarku?</b></p>
+        <div class="btn-container">
+            <button id="btnYes" class="btn btn-yes">YES ❤️</button>
+            <button id="btnNo" class="btn btn-no">TIDAK 😭</button>
+        </div>
+    </div>
+
+    <div id="page2" class="card hidden">
+        <h2>YEAY ❤️ AKU SENANG BANGET</h2>
+        <p>Terima kasih sudah menerima aku! ✨</p>
+        <button id="btnNext" class="btn btn-next">LANJUT ➜</button>
+    </div>
+
+    <div id="page3" class="card hidden">
+        <h2>Lengkapi Data Yuk! 🥰</h2>
+        <form id="confessForm" onsubmit="event.preventDefault();">
+            <div class="form-group">
+                <label>Nama Kamu</label>
+                <input type="text" id="namaKamu" placeholder="Masukkan nama kamu" required>
+            </div>
+            <div class="form-group">
+                <label>Nama Dia (Aku)</label>
+                <input type="text" id="namaDia" placeholder="Masukkan nama dia" required>
+            </div>
+            <div class="form-group">
+                <label>Umur Kamu</label>
+                <input type="number" id="umur" placeholder="Contoh: 19" required>
+            </div>
+            <div class="form-group">
+                <label>Kota Asal</label>
+                <input type="text" id="kota" placeholder="Contoh: Jakarta" required>
+            </div>
+            <div class="form-group">
+                <label>Pesan Tambahan</label>
+                <textarea id="pesan" placeholder="Tulis ungkapan hatimu..." required></textarea>
+            </div>
+            <button id="btnWa" type="button" class="btn btn-wa">BAGIKAN KE WHATSAPP 💚</button>
+        </form>
+    </div>
+
+    <script>
+        // Pindah Posisi Awal Tombol TIDAK agar berada di dalam container di awal
+        const btnNo = document.getElementById('btnNo');
+        const btnYes = document.getElementById('btnYes');
+        
+        function aturPosisiAwalNo() {
+            const rectYes = btnYes.getBoundingClientRect();
+            // Taruh tombol tidak di sebelah tombol yes secara presisi di awal luar alur fixed koordinat bebas
+            btnNo.style.left = (rectYes.right + 20) + 'px';
+            btnNo.style.top = rectYes.top + 'px';
+        }
+        
+        window.addEventListener('DOMContentLoaded', aturPosisiAwalNo);
+        window.addEventListener('resize', aturPosisiAwalNo);
+
+        // Fungsi memindahkan tombol TIDAK ke posisi random
+        function pindahTombolNo() {
+            const padding = 20;
+            const tombolWidth = btnNo.offsetWidth;
+            const tombolHeight = btnNo.offsetHeight;
+            
+            // Ukuran layar aktif
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            // Cari koordinat random agar tidak keluar layar
+            let randomX = Math.floor(Math.random() * (screenWidth - tombolWidth - (padding * 2))) + padding;
+            let randomY = Math.floor(Math.random() * (screenHeight - tombolHeight - (padding * 2))) + padding;
+
+            // Validasi agar tidak menutupi tombol YES
+            const rectYes = btnYes.getBoundingClientRect();
+            
+            // Jika posisi random menabrak area tombol YES, geser posisinya
+            if (randomX > rectYes.left - 50 && randomX < rectYes.right + 50 &&
+                randomY > rectYes.top - 50 && randomY < rectYes.bottom + 50) {
+                randomX += 150;
+                randomY += 150;
+            }
+
+            // Terapkan posisi baru
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+        }
+
+        // Trigger pindah posisi untuk Mouse (Laptop) dan Touch (HP)
+        btnNo.addEventListener('mouseenter', pindahTombolNo);
+        btnNo.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Mencegah klik bawaan pada mobile
+            pindahTombolNo();
+        });
+        btnNo.addEventListener('click', function(e) {
+            e.preventDefault();
+            pindahTombolNo();
+        });
+
+        // Alur Halaman 1 ke Halaman 2 (Tombol YES)
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
+        
+        btnYes.addEventListener('click', () => {
+            page1.classList.add('hidden');
+            page2.classList.remove('hidden');
+            mulaiSimulasiConfetti(); // Efek selebrasi bertambah banyak
+        });
+
+        // Alur Halaman 2 ke Halaman 3 (Tombol LANJUT)
+        document.getElementById('btnNext').addEventListener('click', () => {
+            page2.classList.add('hidden');
+            page3.classList.remove('hidden');
+        });
+
+        // Alur Kirim Data ke WhatsApp
+        document.getElementById('btnWa').addEventListener('click', () => {
+            const namaKamu = document.getElementById('namaKamu').value.trim();
+            const namaDia = document.getElementById('namaDia').value.trim();
+            const umur = document.getElementById('umur').value.trim();
+            const kota = document.getElementById('kota').value.trim();
+            const pesan = document.getElementById('pesan').value.trim();
+
+            // Validasi sederhana bawaan manual agar form terisi semua
+            if(!namaKamu || !namaDia || !umur || !kota || !pesan) {
+                alert("Isi semua kolom form dulu yaa! CC: ❤️");
+                return;
+            }
+
+            // Format template pesan teks WhatsApp
+            const teksWhatsapp = `Hai ${namaDia} ❤️\nAku ${namaKamu}.\n\nAku mau bilang...\n"${pesan}"\n\nFakta tentang aku:\n📍 Kota: ${kota}\n🎂 Umur: ${umur} tahun\n\nI love you! ✨`;
+            
+            // Buka WhatsApp di tab/aplikasi baru
+            window.open("https://wa.me/?text=" + encodeURIComponent(teksWhatsapp));
+        });
+
+        // Efek Animasi Hati Bergerak Otomatis di Background
+        function buatHatiLatar() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Antara 4-7 detik
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px'; // Ukuran random
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        // Jalankan generator hati konstan
+        setInterval(buatHatiLatar, 400);
+
+        // Fungsi khusus membuat efek ledakan hati saat sukses diklik
+        function mulaiSimulasiConfetti() {
+            for(let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('floating-heart');
+                    heart.innerHTML = ['❤️','💖','✨','🌸'][Math.floor(Math.random() * 4)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.bottom = '0px';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(heart);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
